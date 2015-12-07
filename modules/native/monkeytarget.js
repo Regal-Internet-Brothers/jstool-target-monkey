@@ -3,7 +3,7 @@
 // Don't bother if you intend to pass arguments with JavaScript or Monkey code.
 function __monkey_jstool_exec()
 {
-	if (typeof CFG_JSTOOL_AUTORUN !== 'undefined')
+	if (typeof CFG_JSTOOL_STANDALONE == 'undefined' || !CFG_JSTOOL_STANDALONE)
 	{
 		executeMonkey(null);
 	}
@@ -34,21 +34,22 @@ function executeMonkey(appArgs)
 		bbInit();
 		
 		bbMain();
-		
-		__monkey_jstool_has_run_once = true;
 	}
 	catch( ex )
 	{
 		if (typeof CFG_CONFIG !== 'undefined' && CFG_CONFIG === "debug")
 		{
-			alert("EXCEPTION CAUGHT: " + ex);
-			throw ex;
+			if (ex != null)
+			{
+				alert("EXCEPTION CAUGHT: " + ex);
+				throw ex;
+			}
 		}
 		
 		return;
 	}
 	
-	// Nothing else so far.
+	__monkey_jstool_has_run_once = true;
 	
 	return;
 }
