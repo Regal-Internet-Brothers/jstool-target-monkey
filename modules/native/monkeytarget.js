@@ -42,6 +42,7 @@ function executeMonkey(appArgs)
 		if (typeof CFG_CONFIG !== 'undefined' && CFG_CONFIG === "debug")
 		{
 			alert("EXCEPTION CAUGHT: " + ex);
+			throw ex;
 		}
 		
 		return;
